@@ -1,39 +1,32 @@
 import React from 'react';
 import Card from '../Card/Card';
 
+
 function List(props){
 
-    console.log(props.store.store.lists);
-    
-    let cards = props.store.store.lists.map((card, index) => {
-       /* if(card === props.store.lists[index].cardIds[index]){ */
-            
-        let cardId = card.cardIds;
-        cardIds.map((id, index) =>{
-            
-        });
 
-        /*return (
+    let cards = props.cardIds.map((val, index) => {
+
+        return (
             <Card 
-                key = {index}
-                id = {props.store.store.allCards[cardId].id}
-                title = {props.store.store.allCards[cardId].title}
-                content = {props.store.store.allCards[cardId].content}
-                />
-        );*/
-        
+                id = {index}
+                title = {props.allCards[val].title}
+                content = {props.allCards[val].content}
+            />
+        )    
     });
-    
-    return(
-        <section className="List">
 
-        <div className="List-cards">
+
+    return (
+        <section className="List" key = {props.id}>
+            <header className="List-header">
+                <h2>{props.header}</h2>
+            </header>
             {cards}
-        </div>
-
         </section>
-    )
 
+    )
+        
 }
 
 export default List;

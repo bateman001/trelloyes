@@ -3,6 +3,23 @@ import List from './List/List';
 
 
 function App(props){
+  
+  let list = props.store.lists.map((val, index) => {
+
+      return(
+        <List 
+          id = {index}
+          header = {val.header}
+          cardIds = {val.cardIds}
+          allCards = {props.store.allCards}
+          />
+      );
+
+
+  });
+
+  console.log(list);
+
   return (
       <div className="App">
 
@@ -11,11 +28,12 @@ function App(props){
         </header>
 
         <div className="App-list">
-          <List store = {props}/>
+          {list}; 
         </div>
 
         </div>
     );
+
 }
 
 export default App;
