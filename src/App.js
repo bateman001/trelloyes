@@ -14,11 +14,15 @@ class App extends React.Component{
       this.generateCard = this.generateCard.bind(this);
    }
 
-  deleteCard(index, listKey){
-    STORE.lists[listKey].cardIds.splice(index, 1);
-    this.setState({ store: STORE });
-
-    console.log(this.state);
+  deleteCard(val){
+   //STORE.lists[listKey].cardIds.splice(index, 1);
+  STORE.lists.map(obj => {
+   return obj.cardIds.splice(val, 1)
+  })
+    
+  //  console.log(newSTORE)
+    this.setState({ store: STORE })
+    console.log(this.state)
   }
 
   generateCard(listKey){
@@ -34,7 +38,6 @@ class App extends React.Component{
 
     STORE.lists[listKey].cardIds.push(id);
     STORE.allCards[`${id}`] = newCard;
-    console.log(STORE);
     this.setState({ STORE });
 
   }

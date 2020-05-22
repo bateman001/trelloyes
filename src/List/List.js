@@ -6,10 +6,10 @@ class List extends React.Component{
       
 
     Cards(){ 
-        console.log(this.props);
       return  this.props.cardIds.map((val, index) => {
         return (
             <Card 
+                val = {val}
                 listKey = {this.props.id}
                 id = {index}
                 title = {this.props.allCards[val].title}
