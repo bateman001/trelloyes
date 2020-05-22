@@ -9,23 +9,23 @@ class App extends React.Component{
       this.state = { 
         store: STORE 
       }
-
-      this.deleteCard = this.deleteCard.bind(this);
-      this.generateCard = this.generateCard.bind(this);
    }
 
-  deleteCard(val){
+   deleteCard = (val) => {
    //STORE.lists[listKey].cardIds.splice(index, 1);
-  STORE.lists.map(obj => {
-   return obj.cardIds.splice(val, 1)
+  const newList = this.state.store.lists.map(obj => {
+    obj.cardIds = obj.cardIds.filter(x => x !== val)
+      return obj;
   })
+  console.log(newList)
     
-  //  console.log(newSTORE)
-    this.setState({ store: STORE })
-    console.log(this.state)
+    this.setState({ store: {
+      ...this.state.store,
+      lists: newList
+     }})
   }
 
-  generateCard(listKey){
+  generateCard = (listId) => {
     const id = Math.random().toString(36).substring(2, 4)
     + Math.random().toString(36).substring(2, 4);
 
@@ -35,20 +35,30 @@ class App extends React.Component{
       content: 'lorem ipsum',
     }
   
+    const newList = this.state.store.lists.map(obj => {
+      if(obj.id === listId){
+        obj.cardIds = [...obj.cardIds, id]
+      }
+      return obj;
+    })
 
-    STORE.lists[listKey].cardIds.push(id);
-    STORE.allCards[`${id}`] = newCard;
-    this.setState({ STORE });
-
+    const newAllCards = {
+      ...this.state.store.allCards, 
+      [id]: newCard
+    }
+    this.setState({ store: {
+      lists: newList,
+      allCards: newAllCards
+    }});
   }
 
 List() {
-  return STORE.lists.map((val, index) => {
+  return this.state.store.lists.map((val, index) => {
     return <List   
-      id = {index}
+      id = {val.id}
       header = {val.header}
       cardIds = {val.cardIds}
-      allCards = {STORE.allCards}
+      allCards = {this.state.store.allCards}
       deleteCard = {this.deleteCard}
       generateCard = {this.generateCard}
     />
@@ -56,6 +66,7 @@ List() {
 }
 
   render(){
+    console.log(this.state)
     return (
         <div className="App">
 
